@@ -1,13 +1,20 @@
-def convert_list_to_int(lst):
-  result = 0
-  multiplier = 10
+import random
 
-  for element in lst:
-    result *= multiplier
-    result += element
+def promp_user():
+    value = input("Guess the integer from 0 - 100: ")
+    return value
 
-  return result
+def game(result):
+    value = int(promp_user())
+    if value < result:
+        print("Your guess is lower than the result.")
+        return game(result)
+    elif value > result:
+        print("Your guess is larger than the result.")
+        return game(result)
+    else:
+        return f"You guessed the value {result} correctly!"
 
 if __name__ == "__main__":
-  given_list = [8,3,5,1]
-  print(convert_list_to_int(given_list))
+    result = random.randint(0, 100)
+    print(game(result))
