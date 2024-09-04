@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Users</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+  <a class="btn btn-primary" href="/add-user">Add User</a>
+  <br>
+  <a class="btn btn-primary" href="/delete-user">Delete User</a>
+  <br>
+  <h1>Users List</h1>
+  <table id="usersTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Users will be populated here by JavaScript -->
+    </tbody>
+  </table>
+
+  <script>
+    // Fetch users data from the API and populate the table
+    fetch('/view-users/api/users')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#usersTable tbody');
+        data.forEach(user => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.firstname}</td>
+            <td>${user.lastname}</td>
+            <td>${user.location}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error('Error fetching users:', error));
+  </script>
+</body>
+</html>
